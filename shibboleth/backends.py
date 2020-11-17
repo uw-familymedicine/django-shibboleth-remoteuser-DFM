@@ -18,7 +18,7 @@ class ShibbolethRemoteUserBackend(RemoteUserBackend):
     """
 
     # Create a User object if not already in the database?
-    create_unknown_user = getattr(settings, 'CREATE_UNKNOWN_USER', True)
+    create_unknown_user = getattr(settings, 'CREATE_UNKNOWN_USER', False)       #set to false to prevent users being created who have no account in Postgres
 
     def authenticate(self, request, remote_user, shib_meta):
         """
@@ -49,12 +49,12 @@ class ShibbolethRemoteUserBackend(RemoteUserBackend):
         # instead we use get_or_create when creating unknown users since it has
         # built-in safeguards for multiple threads.
         if self.create_unknown_user:
-            user, created = User.objects.get_or_create(username=username, defaults=defaults)
+            user, created = User.objects.get_or_create(email=username, defaults=defaults)         #set to create or return user by email
             if created:
                 user = self.handle_created_user(request, user)
         else:
             try:
-                user = User.objects.get(username=username)
+                user = User.objects.get(email=username)         #set to return user by email
             except User.DoesNotExist:
                 return
         return user

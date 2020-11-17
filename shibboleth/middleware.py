@@ -8,6 +8,7 @@ from shibboleth.app_settings import SHIB_ATTRIBUTE_MAP, GROUP_ATTRIBUTES, GROUP_
 
 
 class ShibbolethRemoteUserMiddleware(RemoteUserMiddleware):
+    header = 'HTTP_REMOTE_USER'     #set so middleware can find the header, Remote_User does not exist as apache 2.4 will append all headers with HTTP_
     """
     Authentication Middleware for use with Shibboleth.  Uses the recommended pattern
     for remote authentication from: http://code.djangoproject.com/svn/django/tags/releases/1.3/django/contrib/auth/middleware.py
@@ -39,7 +40,7 @@ class ShibbolethRemoteUserMiddleware(RemoteUserMiddleware):
         # persisted in the session and we don't need to continue.
         is_authenticated = request.user.is_authenticated
         if is_authenticated:
-            if request.user.username == self.clean_username(username, request):
+            if request.user.email == self.clean_username(username, request):        #set to email as username is not in the user model
                 return
 
         # Make sure we have all required Shiboleth elements before proceeding.
