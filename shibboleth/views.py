@@ -67,9 +67,9 @@ class ShibbolethLogoutView(TemplateView):
         #Log the user out.
         auth.logout(self.request)
         #Get target url in order of preference.
-        target = LOGOUT_REDIRECT_URL or\
-                 quote(self.request.GET.get(self.redirect_field_name, '')) or\
-                 quote(request.build_absolute_uri())
+        #target = LOGOUT_REDIRECT_URL or\
+        #         quote(self.request.GET.get(self.redirect_field_name, '')) or\
+        #         quote(request.build_absolute_uri())
         #logout = LOGOUT_URL % target
         #logout = LOGOUT_URL + '?target=%s' % target
         logout = LOGOUT_URL
