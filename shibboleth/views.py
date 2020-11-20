@@ -71,5 +71,6 @@ class ShibbolethLogoutView(TemplateView):
                  quote(self.request.GET.get(self.redirect_field_name, '')) or\
                  quote(request.build_absolute_uri())
         #logout = LOGOUT_URL % target
-        logout = LOGOUT_URL + '?target=%s' % target
+        #logout = LOGOUT_URL + '?target=%s' % target
+        logout = LOGOUT_URL
         return redirect(logout)
