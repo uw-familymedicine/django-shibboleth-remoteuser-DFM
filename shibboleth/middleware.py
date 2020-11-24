@@ -2,6 +2,7 @@ from django.contrib.auth.middleware import RemoteUserMiddleware
 from django.contrib.auth.models import Group
 from django.contrib import auth
 from django.core.exceptions import ImproperlyConfigured
+from django.http import HttpResponseRedirect
 import re
 
 from shibboleth.app_settings import SHIB_ATTRIBUTE_MAP, GROUP_ATTRIBUTES, GROUP_DELIMITERS
@@ -70,7 +71,7 @@ class ShibbolethRemoteUserMiddleware(RemoteUserMiddleware):
             self.setup_session(request)
         else:
             return HttpResponseRedirect("http://google.com")
-            
+
     def make_profile(self, user, shib_meta):
         """
         This is here as a stub to allow subclassing of ShibbolethRemoteUserMiddleware
