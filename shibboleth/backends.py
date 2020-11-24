@@ -35,9 +35,9 @@ class ShibbolethRemoteUserBackend(RemoteUserBackend):
         user = self.setup_user(request=request, username=username, defaults=shib_user_params)
         if user:
             self.update_user_params(user=user, params=shib_user_params)
-            return user if self.user_can_authenticate(user) else redirect('/loggedout/')
+            return user if self.user_can_authenticate(user) else redirect("https://google.com/")
         else:
-            redirect('/loggedout/') #add put redirect if no user is found
+            return redirect("https://stackoverflow.com/") #add put redirect if no user is found
 
     def setup_user(self, request, username, defaults):
         """
