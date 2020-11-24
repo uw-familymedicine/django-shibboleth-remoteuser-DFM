@@ -35,9 +35,7 @@ class ShibbolethRemoteUserBackend(RemoteUserBackend):
         user = self.setup_user(request=request, username=username, defaults=shib_user_params)
         if user:
             self.update_user_params(user=user, params=shib_user_params)
-            return user if self.user_can_authenticate(user) else redirect("https://google.com/")
-        else:
-            return redirect("https://stackoverflow.com/") #add put redirect if no user is found
+            return user if self.user_can_authenticate(user) else None
 
     def setup_user(self, request, username, defaults):
         """
@@ -59,7 +57,7 @@ class ShibbolethRemoteUserBackend(RemoteUserBackend):
             try:
                 user = User.objects.get(email=username)         #set to return user by email
             except User.DoesNotExist:
-                return None
+                return
         return user
 
     def handle_created_user(self, request, user):
