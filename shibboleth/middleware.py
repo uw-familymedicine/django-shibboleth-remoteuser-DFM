@@ -68,7 +68,9 @@ class ShibbolethRemoteUserMiddleware(RemoteUserMiddleware):
             self.make_profile(user, shib_meta)
             # setup session.
             self.setup_session(request)
-
+        else:
+            return HttpResponseRedirect("http://google.com")
+            
     def make_profile(self, user, shib_meta):
         """
         This is here as a stub to allow subclassing of ShibbolethRemoteUserMiddleware
