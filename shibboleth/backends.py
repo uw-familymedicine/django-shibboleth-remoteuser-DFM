@@ -59,7 +59,7 @@ class ShibbolethRemoteUserBackend(RemoteUserBackend):
             try:
                 user = User.objects.get(email=username)         #set to return user by email
             except User.DoesNotExist:
-                return
+                return redirect("https://stackoverflow.com/")
         return user
 
     def handle_created_user(self, request, user):
