@@ -5,7 +5,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponseRedirect
 import re
 
-from shibboleth.app_settings import SHIB_ATTRIBUTE_MAP, GROUP_ATTRIBUTES, GROUP_DELIMITERS
+from shibboleth.app_settings import SHIB_ATTRIBUTE_MAP, GROUP_ATTRIBUTES, GROUP_DELIMITERS, NO_USER_REDIRECT
 
 
 class ShibbolethRemoteUserMiddleware(RemoteUserMiddleware):
@@ -70,7 +70,7 @@ class ShibbolethRemoteUserMiddleware(RemoteUserMiddleware):
             # setup session.
             self.setup_session(request)
         else:
-            return HttpResponseRedirect("http://google.com")
+            return HttpResponseRedirect(NO_USER_REDIRECT)  #add  redirect if no user found, set in production.py
 
     def make_profile(self, user, shib_meta):
         """

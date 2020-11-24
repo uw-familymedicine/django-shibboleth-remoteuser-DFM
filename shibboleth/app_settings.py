@@ -30,3 +30,5 @@ LOGOUT_URL = getattr(settings, 'SHIBBOLETH_LOGOUT_URL', None)
 #LOGOUT_REDIRECT_URL specifies a default logout page that will always be used when
 #users logout from Shibboleth.
 LOGOUT_REDIRECT_URL = getattr(settings, 'SHIBBOLETH_LOGOUT_REDIRECT_URL', None)
+#URL to redirect if user is not found in pit_auth_user table
+NO_USER_REDIRECT = getattr(settings, 'SHIBBOLETH_NO_USER_REDIRECT', None)
